@@ -41,12 +41,12 @@ const Header = () => {
                         {menu}
                     </ul>
                 </div>
-                <div className="navbar-end">
-                        <div className="tooltip tooltip-bottom w-10 rounded-full" data-tip={`${user?.displayName}`}>
-                            <img className="w-10 rounded-full" alt="avatar" src={user?.photoURL} />
-                        </div>
+                {user && <div className="navbar-end">
+                    <div className="tooltip tooltip-bottom w-10 rounded-full" data-tip={`${user?.displayName}`}>
+                        <img className="w-10 rounded-full" alt="avatar" src={user?.photoURL} />
                     </div>
-                </div>
+                </div>}
+            </div>
         </>
     )
 }

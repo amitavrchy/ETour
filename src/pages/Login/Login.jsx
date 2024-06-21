@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form';
 import { AiFillGoogleCircle, AiFillGithub } from 'react-icons/ai'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2'
 const Signup = () => {
     const location = useLocation();
     const [error, setError] = useState("");
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { signIn, googleLogin, githubLogin } = useAuth()
     const navigate = useNavigate();
-    console.log(location.state?.from?.pathname);
     const from = location.state?.from?.pathname || "/";
 
     const onSubmit = data => {
@@ -17,6 +17,13 @@ const Signup = () => {
         const password = data.password;
         signIn(email, password)
             .then(data => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate(from, { replace: true });
             })
             .catch(error => setError(error.message))
@@ -27,6 +34,13 @@ const Signup = () => {
     const handleGoogleLogin = () => {
         googleLogin()
             .then(data => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate('/');
             })
     }
@@ -34,6 +48,13 @@ const Signup = () => {
     const handleGithubLogin = () => {
         githubLogin()
             .then(data => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate('/');
             })
     }

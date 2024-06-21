@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { AiFillGoogleCircle, AiFillGithub } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2'
 
 const Signup = () => {
     const [error, setError] = useState("");
@@ -14,10 +15,16 @@ const Signup = () => {
         const name = data.name;
         const email = data.email;
         const password = data.password;
-        const role = data.role;
 
         emailPasswordSignUp(email, password)
             .then(data => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Registration Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 updateUserProfile(name)
                     .then(data =>
                         navigate("/")
@@ -31,6 +38,13 @@ const Signup = () => {
     const handleGoogleLogin = () => {
         googleLogin()
             .then(data => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Registration Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate('/');
             })
     }
@@ -38,6 +52,13 @@ const Signup = () => {
     const handleGithubLogin = () => {
         githubLogin()
             .then(data => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Registration Successful!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate('/');
             })
     }
@@ -84,7 +105,16 @@ const Signup = () => {
                                     <input
                                         type="password"
                                         className="input input-bordered w-full"
-                                        {...register('password', { required: 'Password is required' })}
+                                        {...register('password', {
+                                            required: 'Password is required', validate: {
+                                                hasUpperCase: value =>
+                                                    /[A-Z]/.test(value) || 'Password must have an uppercase letter',
+                                                hasLowerCase: value =>
+                                                    /[a-z]/.test(value) || 'Password must have a lowercase letter',
+                                                minLength: value =>
+                                                    value.length >= 6 || 'Password must be at least 6 characters long'
+                                            }
+                                        })}
                                     />
                                     {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
                                 </div>
