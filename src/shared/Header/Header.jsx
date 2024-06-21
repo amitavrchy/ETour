@@ -8,8 +8,9 @@ const Header = () => {
     }
     const menu = <>
         <li><Link to="/">Home</Link></li>
-        <li><Link to="/sessions">Sessions</Link></li>
-        <li><Link to="/tutors">Tutors</Link></li>
+        <li><Link to="/all-tourist">All Tourist Spot</Link></li>
+        <li><Link to="/add-tourist">Add Tourist Spot</Link></li>
+        <li><Link to="/list">My List</Link></li>
         {user ? <>
             <li><Link to='/dashboard'>Dashboard</Link></li>
             <li onClick={handleLogout}><Link>Logout</Link></li>
@@ -41,13 +42,11 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img alt="avatar" src={user?.photoURL} />
+                        <div className="tooltip tooltip-bottom w-10 rounded-full" data-tip={`${user?.displayName}`}>
+                            <img className="w-10 rounded-full" alt="avatar" src={user?.photoURL} />
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }
