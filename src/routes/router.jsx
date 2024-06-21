@@ -5,6 +5,7 @@ import Home from '../pages/Home/Home'
 import Signup from '../pages/SignUp/Signup'
 import Login from '../pages/Login/Login'
 import TouristSpotDetails from '../pages/Home/TouristSpotDetails'
+import CountryDetails from "../pages/Home/CountryDetails"
 
 const router = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: "/tourist-spot/:id",
                 element: <TouristSpotDetails></TouristSpotDetails>
+            },
+            {
+                path: "/country-details/:country",
+                element: <CountryDetails></CountryDetails>
             }
         ]
     }
