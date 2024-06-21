@@ -4,7 +4,7 @@ import Header from '../../shared/Header/Header'
 
 const Main = () => {
   return (
-    <div className='w-4/5 mx-auto'>
+    <div className='w-4/5 mx-auto font-poppins'>
         <Header></Header>
         <Outlet></Outlet>
     </div>
