@@ -9,6 +9,7 @@ import CountryDetails from "../pages/Home/CountryDetails"
 import AllTouristSpot from '../pages/AllTouristSpot/AllTouristSpot'
 import AddTouristSpot from '../pages/AddTouristSpot/AddTouristSpot'
 import MyList from '../pages/MyList/MyList'
+import NotFound404 from '../pages/NotFound404/NotFound404'
 
 const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
                 element: <MyList></MyList>
             }
         ]
+    },
+    {
+        path: "*",
+        element: <NotFound404></NotFound404>
     }
 ])
 
