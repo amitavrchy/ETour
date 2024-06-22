@@ -1,18 +1,54 @@
-import React, { useEffect, useState } from 'react'
-import SectionHeader from '../../shared/SectionHeader/SectionHeader'
+import React, { useEffect, useState } from 'react';
+import SectionHeader from '../../shared/SectionHeader/SectionHeader';
 import { Link } from 'react-router-dom';
 
 const AllTouristSpot = () => {
     const [spots, setSpots] = useState([]);
+    const [sortBy, setSortBy] = useState('asc');
     useEffect(() => {
+        fetchTouristSpots();
+    }, []);
+    const fetchTouristSpots = () => {
         fetch('http://localhost:5000/tourist-spots')
             .then(response => response.json())
-            .then(data => setSpots(data))
+            .then(data => {
+                const sortedSpots = sortSpots(data);
+                setSpots(sortedSpots);
+            })
             .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    };
+
+    const handleSort = () => {
+        const newSortOrder = sortBy === 'asc' ? 'desc' : 'asc';
+        setSortBy(newSortOrder);
+        const sortedSpots = sortSpots(spots, newSortOrder);
+        setSpots(sortedSpots);
+    };
+    const sortSpots = (spotsToSort, sortOrder = 'asc') => {
+        return spotsToSort.sort((a, b) => {
+            if (sortOrder === 'asc') {
+                return a.average_cost - b.average_cost;
+            } else {
+                return b.average_cost - a.average_cost;
+            }
+        });
+    };
+
     return (
         <>
             <SectionHeader title="All Tourist Spots"></SectionHeader>
+            <div className="container mx-auto p-5 flex justify-end">
+                <div className="relative inline-flex">
+                    <select
+                        className="form-select"
+                        onChange={handleSort}
+                        value={sortBy}
+                    >
+                        <option value="asc">Sort by Price (Low to High)</option>
+                        <option value="desc">Sort by Price (High to Low)</option>
+                    </select>
+                </div>
+            </div>
             <div className="container mx-auto p-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {spots?.map(spot => (
@@ -36,7 +72,7 @@ const AllTouristSpot = () => {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default AllTouristSpot
+export default AllTouristSpot;
