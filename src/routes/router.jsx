@@ -7,6 +7,7 @@ import Login from '../pages/Login/Login'
 import TouristSpotDetails from '../pages/Home/TouristSpotDetails'
 import CountryDetails from "../pages/Home/CountryDetails"
 import AllTouristSpot from '../pages/AllTouristSpot/AllTouristSpot'
+import AddTouristSpot from '../pages/AddTouristSpot/AddTouristSpot'
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: "/all-tourist-spot",
                 element: <AllTouristSpot></AllTouristSpot>
+            },
+            {
+                path: "/add-tourist-spot",
+                element: <AddTouristSpot></AddTouristSpot>
             }
         ]
     }

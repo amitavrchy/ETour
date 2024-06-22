@@ -1,14 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const AddTouristSpot = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const onSubmit = (data) => {
-        // Implement your logic to send data to backend here
         console.log(data);
-        // Example fetch implementation
         fetch('http://localhost:5000/add-spot', {
             method: 'POST',
             headers: {
@@ -18,142 +17,177 @@ const AddTouristSpot = () => {
         })
         .then(response => response.json())
         .then(result => {
-            console.log('Success:', result);
-            // Redirect or show success message as needed
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Tourist Spot Added Successfully!",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              reset();
+              
         })
         .catch(error => {
             console.error('Error:', error);
-            // Handle errors
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Something went wrong",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              
         });
     };
 
     return (
-        <div className="container mx-auto p-5">
-            <h1 className="text-3xl font-bold mb-8">Add Tourists Spot</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto">
-                <div className="space-y-4">
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Image URL</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            {...register('image', { required: 'Image URL is required' })}
-                        />
-                        {errors.image && <p className="text-red-500 text-xs">{errors.image.message}</p>}
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Tourists Spot Name</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            {...register('tourists_spot_name', { required: 'Tourists Spot Name is required' })}
-                        />
-                        {errors.tourists_spot_name && <p className="text-red-500 text-xs">{errors.tourists_spot_name.message}</p>}
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Country Name</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            {...register('country_name', { required: 'Country Name is required' })}
-                        />
-                        {errors.country_name && <p className="text-red-500 text-xs">{errors.country_name.message}</p>}
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Location</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            {...register('location', { required: 'Location is required' })}
-                        />
-                        {errors.location && <p className="text-red-500 text-xs">{errors.location.message}</p>}
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Short Description</span>
-                        </label>
-                        <textarea
-                            className="textarea textarea-bordered w-full"
-                            {...register('short_description', { required: 'Short Description is required' })}
-                        />
-                        {errors.short_description && <p className="text-red-500 text-xs">{errors.short_description.message}</p>}
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Average Cost</span>
-                        </label>
-                        <input
-                            type="number"
-                            className="input input-bordered w-full"
-                            {...register('average_cost', { required: 'Average Cost is required', min: 0 })}
-                        />
-                        {errors.average_cost && <p className="text-red-500 text-xs">{errors.average_cost.message}</p>}
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Seasonality</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            {...register('seasonality')}
-                        />
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Travel Time</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            {...register('travel_time')}
-                        />
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Total Visitors Per Year</span>
-                        </label>
-                        <input
-                            type="number"
-                            className="input input-bordered w-full"
-                            {...register('totalVisitorsPerYear', { min: 0 })}
-                        />
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">User Email</span>
-                        </label>
-                        <input
-                            type="email"
-                            className="input input-bordered w-full"
-                            {...register('user_email', { required: 'User Email is required' })}
-                        />
-                        {errors.user_email && <p className="text-red-500 text-xs">{errors.user_email.message}</p>}
-                    </div>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">User Name</span>
-                        </label>
-                        <input
-                            type="text"
-                            className="input input-bordered w-full"
-                            {...register('user_name', { required: 'User Name is required' })}
-                        />
-                        {errors.user_name && <p className="text-red-500 text-xs">{errors.user_name.message}</p>}
-                    </div>
-                    <div className="form-control mt-6">
-                        <button type="submit" className="btn btn-primary w-full">Add</button>
-                    </div>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full space-y-8 p-8 bg-white shadow-lg rounded-xl">
+                <div>
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Add Tourists Spot</h2>
                 </div>
-            </form>
+                <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
+                    <div className="grid grid-cols-1 gap-y-6">
+                        <div>
+                            <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+                                Image URL
+                            </label>
+                            <input
+                                id="image"
+                                {...register('image', { required: 'Image URL is required' })}
+                                type="text"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            {errors.image && <p className="text-red-500 text-xs mt-1">{errors.image.message}</p>}
+                        </div>
+                        <div>
+                            <label htmlFor="tourists_spot_name" className="block text-sm font-medium text-gray-700">
+                                Tourist Spot Name
+                            </label>
+                            <input
+                                id="tourists_spot_name"
+                                {...register('tourist_spot_name', { required: 'Tourists Spot Name is required' })}
+                                type="text"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            {errors.tourists_spot_name && <p className="text-red-500 text-xs mt-1">{errors.tourists_spot_name.message}</p>}
+                        </div>
+                        <div>
+                            <label htmlFor="country_name" className="block text-sm font-medium text-gray-700">
+                                Country Name
+                            </label>
+                            <input
+                                id="country_name"
+                                {...register('country_name', { required: 'Country Name is required' })}
+                                type="text"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            {errors.country_name && <p className="text-red-500 text-xs mt-1">{errors.country_name.message}</p>}
+                        </div>
+                        <div>
+                            <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+                                Location
+                            </label>
+                            <input
+                                id="location"
+                                {...register('location', { required: 'Location is required' })}
+                                type="text"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            {errors.location && <p className="text-red-500 text-xs mt-1">{errors.location.message}</p>}
+                        </div>
+                        <div>
+                            <label htmlFor="short_description" className="block text-sm font-medium text-gray-700">
+                                Short Description
+                            </label>
+                            <textarea
+                                id="short_description"
+                                {...register('short_description', { required: 'Short Description is required' })}
+                                rows={3}
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            {errors.short_description && <p className="text-red-500 text-xs mt-1">{errors.short_description.message}</p>}
+                        </div>
+                        <div>
+                            <label htmlFor="average_cost" className="block text-sm font-medium text-gray-700">
+                                Average Cost
+                            </label>
+                            <input
+                                id="average_cost"
+                                {...register('average_cost', { required: 'Average Cost is required', min: 0 })}
+                                type="number"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            {errors.average_cost && <p className="text-red-500 text-xs mt-1">{errors.average_cost.message}</p>}
+                        </div>
+                        <div>
+                            <label htmlFor="seasonality" className="block text-sm font-medium text-gray-700">
+                                Seasonality
+                            </label>
+                            <input
+                                id="seasonality"
+                                {...register('seasonality')}
+                                type="text"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="travel_time" className="block text-sm font-medium text-gray-700">
+                                Travel Time
+                            </label>
+                            <input
+                                id="travel_time"
+                                {...register('travel_time')}
+                                type="text"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="totalVisitorsPerYear" className="block text-sm font-medium text-gray-700">
+                                Total Visitors Per Year
+                            </label>
+                            <input
+                                id="totalVisitorsPerYear"
+                                {...register('totalVisitorsPerYear')}
+                                type="text"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="user_email" className="block text-sm font-medium text-gray-700">
+                                User Email
+                            </label>
+                            <input
+                                id="user_email"
+                                {...register('user_email', { required: 'User Email is required' })}
+                                type="email"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            {errors.user_email && <p className="text-red-500 text-xs mt-1">{errors.user_email.message}</p>}
+                        </div>
+                        <div>
+                            <label htmlFor="user_name" className="block text-sm font-medium text-gray-700">
+                                User Name
+                            </label>
+                            <input
+                                id="user_name"
+                                {...register('user_name', { required: 'User Name is required' })}
+                                type="text"
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            />
+                            {errors.user_name && <p className="text-red-500 text-xs mt-1">{errors.user_name.message}</p>}
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            type="submit"
+                            className="mt-6 w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                        >
+                            Add
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
