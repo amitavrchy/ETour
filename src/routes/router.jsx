@@ -10,6 +10,7 @@ import AllTouristSpot from '../pages/AllTouristSpot/AllTouristSpot'
 import AddTouristSpot from '../pages/AddTouristSpot/AddTouristSpot'
 import MyList from '../pages/MyList/MyList'
 import NotFound404 from '../pages/NotFound404/NotFound404'
+import ProtectedRoute from '../routes/ProtectedRoute'
 
 const router = createBrowserRouter([
     {
@@ -30,11 +31,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/tourist-spot/:id",
-                element: <TouristSpotDetails></TouristSpotDetails>
+                element: <ProtectedRoute><TouristSpotDetails></TouristSpotDetails></ProtectedRoute>
             },
             {
                 path: "/country-details/:country",
-                element: <CountryDetails></CountryDetails>
+                element: <ProtectedRoute><CountryDetails></CountryDetails></ProtectedRoute>
             },
             {
                 path: "/all-tourist-spot",
@@ -42,11 +43,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/add-tourist-spot",
-                element: <AddTouristSpot></AddTouristSpot>
+                element: <ProtectedRoute><AddTouristSpot></AddTouristSpot></ProtectedRoute>
             },
             {
                 path: "/my-list",
-                element: <MyList></MyList>
+                element: <ProtectedRoute><MyList></MyList></ProtectedRoute>
             }
         ]
     },
