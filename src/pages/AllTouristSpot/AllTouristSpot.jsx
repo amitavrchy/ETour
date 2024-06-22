@@ -56,7 +56,7 @@ const AllTouristSpot = () => {
                             <figure><img src={spot.image} alt={spot.tourist_spot_name} /></figure>
                             <div className="card-body">
                                 <h2 className="card-title">{spot.tourist_spot_name}</h2>
-                                <p>{spot.short_description}</p>
+                                <p>{spot.short_description.substr(0,80)}...</p>
                                 <div className='grid grid-cols-1 lg:grid-cols-2'>
                                     <p>Average Cost: {spot.average_cost} </p>
                                     <p>Total Visitors Per Year: {spot.totalVisitorsPerYear}</p>

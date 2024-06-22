@@ -65,7 +65,7 @@ const Header = () => {
                 <div className="navbar-end flex items-center">
                     {user && (
                         <div className="tooltip tooltip-bottom w-10 rounded-full" data-tip={`${user?.displayName}`}>
-                            <img className="w-10 rounded-full" alt="avatar" src={user.photoURL ? user.photoURL : `https://i.ibb.co/XJdx5xF/blank-profile-picture-973460-960-720.webp`} />
+                            <img className="w-10 h-10 rounded-full" alt="avatar" src={user.photoURL ? user.photoURL : `https://i.ibb.co/XJdx5xF/blank-profile-picture-973460-960-720.webp`} />
                         </div>
                     )}
                     <button className="ml-4 btn btn-ghost" onClick={toggleDarkMode}>

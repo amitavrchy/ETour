@@ -15,6 +15,7 @@ const Signup = () => {
         const name = data.name;
         const email = data.email;
         const password = data.password;
+        const photo = data.photo;
 
         emailPasswordSignUp(email, password)
             .then(data => {
@@ -25,7 +26,7 @@ const Signup = () => {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                updateUserProfile(name)
+                updateUserProfile(name,photo)
                     .then(data =>
                         navigate("/")
                     )
@@ -117,6 +118,17 @@ const Signup = () => {
                                         })}
                                     />
                                     {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Photo URL</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="input input-bordered w-full"
+                                        {...register('photo', { required: 'Photo URL is required' })}
+                                    />
+                                    {errors.photo && <p className="text-red-500 text-xs">{errors.photo.message}</p>}
                                 </div>
                                 <div className="form-control mt-6">
                                     <button type="submit" className="btn btn-primary w-full">Sign Up</button>
