@@ -10,7 +10,7 @@ const Header = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/all-tourist-spot">All Tourist Spot</Link></li>
         <li><Link to="/add-tourist-spot">Add Tourist Spot</Link></li>
-        <li><Link to="/list">My List</Link></li>
+        <li><Link to="/my-list">My List</Link></li>
         {user ? <>
             <li onClick={handleLogout}><Link>Logout</Link></li>
         </>

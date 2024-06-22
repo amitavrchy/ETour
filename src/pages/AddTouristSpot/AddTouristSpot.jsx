@@ -115,7 +115,7 @@ const AddTouristSpot = () => {
                             <input
                                 id="average_cost"
                                 {...register('average_cost', { required: 'Average Cost is required', min: 0 })}
-                                type="number"
+                                type="text"
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             />
                             {errors.average_cost && <p className="text-red-500 text-xs mt-1">{errors.average_cost.message}</p>}
