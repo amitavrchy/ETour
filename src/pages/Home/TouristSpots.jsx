@@ -13,7 +13,7 @@ const TouristSpots = () => {
     return (
         <div className="container mx-auto p-5">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {spots?.map(spot => (
+                {spots?.slice(0,6).map(spot => (
                     <div key={spot._id} className="card bg-base-100 shadow-xl">
                         <figure><img src={spot.image} alt={spot.tourist_spot_name} /></figure>
                         <div className="card-body">

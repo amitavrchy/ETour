@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
     return (
@@ -8,7 +9,7 @@ const HeroSection = () => {
                 <div className="max-w-md">
                     <h1 className="mb-5 text-5xl font-bold">Discover Your Next Adventure</h1>
                     <p className="mb-5">Explore the most beautiful places in the world. Experience unforgettable moments and make lasting memories.</p>
-                    <button className="btn btn-primary">Get Started</button>
+                    <Link to="/all-tourist-spot"><button className="btn btn-primary">Get Started</button></Link>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import Signup from '../pages/SignUp/Signup'
 import Login from '../pages/Login/Login'
 import TouristSpotDetails from '../pages/Home/TouristSpotDetails'
 import CountryDetails from "../pages/Home/CountryDetails"
+import AllTouristSpot from '../pages/AllTouristSpot/AllTouristSpot'
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: "/country-details/:country",
                 element: <CountryDetails></CountryDetails>
+            },
+            {
+                path: "/all-tourist-spot",
+                element: <AllTouristSpot></AllTouristSpot>
             }
         ]
     }
