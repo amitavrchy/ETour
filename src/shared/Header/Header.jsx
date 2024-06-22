@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
 
 const Header = () => {
     const { user, logout } = useAuth();
@@ -31,7 +33,7 @@ const Header = () => {
             <li><Link to="/add-tourist-spot">Add Tourist Spot</Link></li>
             <li><Link to="/my-list">My List</Link></li>
             {user ? (
-                <li onClick={handleLogout}><Link>Logout</Link></li>
+                <Tooltip anchorSelect="#clickable" clickable><li onClick={handleLogout}><Link>Logout</Link></li></Tooltip>
             ) : (
                 <>
                     <li><Link to="/login">Login</Link></li>
@@ -63,11 +65,13 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="navbar-end flex items-center">
+                    <a id="clickable">
                     {user && (
-                        <div className="tooltip tooltip-bottom w-10 rounded-full" data-tip={`${user?.displayName}`}>
+                        <div className="tooltip tooltip-right w-10 rounded-full" data-tip={`${user?.displayName}`}>
                             <img className="w-10 h-10 rounded-full" alt="avatar" src={user.photoURL ? user.photoURL : `https://i.ibb.co/XJdx5xF/blank-profile-picture-973460-960-720.webp`} />
                         </div>
                     )}
+                    </a>
                     <button className="ml-4 btn btn-ghost" onClick={toggleDarkMode}>
                         Switch Mode
                         {isDarkMode ? (
